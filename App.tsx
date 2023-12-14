@@ -1,10 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StatusBar } from "expo-status-bar";
+import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import * as Settings from "./modules/expo-settings";
 export default function App() {
+  const theme = Settings.getTheme();
+
+  const nextTheme = theme === "dark" ? "light" : "dark";
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme === "dark" ? "black" : "white" },
+      ]}
+    >
+      <Text
+        style={{
+          fontSize: 44,
+          color: theme === "dark" ? "white" : "black",
+          textAlign: "center",
+        }}
+      >
+        Open up App.tsx to start working on your app!
+      </Text>
+      <Button title="Hello" onPress={() => Alert.alert(Settings.hello())} />
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +30,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
